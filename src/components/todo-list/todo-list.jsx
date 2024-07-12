@@ -7,10 +7,21 @@ export const TodoList = () => {
   const { todos, setTodos } = React.useContext(TodosContext);
 
   const handleDelete = (id) => {
-    // Fix an ability to delete task
+    setTodos(todos.filter((el) => el.id !== id));
   };
 
   const toggleCheck = (id) => {
+    setTodos(
+      todos.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            checked: !el.checked,
+          };
+        }
+        return el;
+      }),
+    );
     // Fix an ability to toggle task
   };
 
@@ -24,7 +35,7 @@ export const TodoList = () => {
     <div className="todo-list">
       <span className="todo-list-title">Things to do:</span>
       {todos.length ? (
-        <div className="todo-list-content">
+        <div className="todo-list content">
           {todos.map((todoItem) => (
             <Checkbox
               key={todoItem.id}
